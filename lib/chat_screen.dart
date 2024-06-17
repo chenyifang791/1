@@ -24,6 +24,16 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    // Cancel any pending messages if the screen is disposed while waiting for a response
+    if (_isSending) {
+      // Implement cancellation logic if your API supports it
+    }
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _sendMessage(String message, {String role = 'user'}) async {
     setState(() {
       _messages.add({'role': role, 'content': message});
@@ -33,6 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
       _controller.clear();
     }
     final response = await _gptApi.emitMessage(message: message, role: role);
+    if (!mounted) return;
     setState(() {
       _messages.add({'role': 'assistant', 'content': response});
       _isSending = false;
