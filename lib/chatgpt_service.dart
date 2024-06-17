@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 class GptAPI {
   final String apiKey = 'sk-G6QwkynisJCFz8D0427d78B22a3b4aB2Bb208547BdA33630';
   final Uri apiAddress;
@@ -46,7 +45,8 @@ class GptAPI {
 
   String _formatRequestBody({required String message, required String role}) {
     return json.encode({
-      'model': 'gpt-3.5-turbo-16k',
+      // 'model': 'gpt-3.5-turbo-16k',gpt-4o
+      'model': 'gpt-4o',
       'messages': [
         {'role': 'system', 'content': _generateSystemMessage()},
         {'role': role, 'content': message},
@@ -55,7 +55,7 @@ class GptAPI {
   }
 
   String _generateSystemMessage() {
-    return "You are a 富有热情且友好的虚拟体育助教 and Assistant. 请回答用户的问题.请判断用户的输入语言,并用同样的语言回答.并且避免回答医疗相关的内容.";
+    return "You are a 富有热情且友好的虚拟体育助教 and Assistant. 请回答用户的问题.请判断用户的输入语言,并用同样的语言回答.并且避免回答医疗、健康相关的内容.with medical and health information you should include links to sources for the information. ";
   }
 
   String _parseResponse(http.Response response) {
@@ -68,6 +68,4 @@ class GptAPI {
       return 'Failed to fetch response, please try again later. Status code: ${response.statusCode}';
     }
   }
-
- 
 }
