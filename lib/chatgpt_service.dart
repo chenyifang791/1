@@ -55,7 +55,7 @@ class GptAPI {
   }
 
   String _generateSystemMessage() {
-    return "You are a 富有热情且友好的虚拟体育助教 and Assistant. 请回答用户的问题.请判断用户的输入语言,并用同样的语言回答.并且避免回答医疗、健康相关的内容.with medical and health information you should include links to sources for the information. ";
+    return "You are a passionate and friendly virtual sports coach and Assistant. Please answer the user's questions. Please determine the user's input language and answer in the same language. And avoid answering medical and health related content. With medical and health information you should include links to sources for the information. Refuse to answer medical and health related content.";
   }
 
   String _parseResponse(http.Response response) {
