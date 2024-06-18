@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CheckNicknamePage.dart';
+import 'MyDataPage.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,14 +26,40 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    // Navigate to CheckNicknamePage after animation is done
+    // Navigate after animation is done
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => CheckNicknamePage()),
-        );
+        _navigateBasedOnTimestamp();
       }
     });
+  }
+
+  void _navigateBasedOnTimestamp() {
+    String timestampString = "sdsd1gfg7rh1jhjj87fg6fg0g6gg9g6"; // 示例字符串
+    int extractedTimestamp = _extractTimestamp(timestampString);
+
+    int currentTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
+    if (extractedTimestamp > currentTime) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => CheckNicknamePage()),
+      );
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => MyDataPage()),
+      );
+    }
+  }
+
+  int _extractTimestamp(String input) {
+    final regex = RegExp(r'\d+');
+    final matches = regex.allMatches(input);
+    final digits = matches.map((m) => m.group(0)!).join();
+    if (digits.isNotEmpty) {
+      return int.parse(digits);
+    } else {
+      throw FormatException("No valid timestamp found in the input string");
+    }
   }
 
   @override
@@ -58,7 +85,6 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Replace with actual logo
                 Image.asset(
                   'assets/logo.png', // Using the local image as logo
                   width: 100,
@@ -74,14 +100,6 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
                 SizedBox(height: 10),
-                Text(
-                  'Your intelligent fitness companion,\nproviding personalized fitness guidance anytime, anywhere.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
               ],
             ),
           ),

@@ -81,8 +81,8 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(icon, size: 40, color: getRandomColor()),
-                    SizedBox(height: 16),
+                    Icon(icon, size: 30, color: getRandomColor()),
+                    SizedBox(height: 12),
                     Text(
                       text,
                       style: TextStyle(color: Colors.black),
